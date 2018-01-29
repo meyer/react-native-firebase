@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "outDir": "ts-build",
+    "declarationDir": "types",
+    "sourceMap": false,
+    "noImplicitAny": false,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "target": "es6",
+    "jsx": "react",
+    "declaration": true,
+    "lib": ["es2015", "es2016", "es2017", "esnext"]
+  },
+  "include": ["lib"],
+  "exclude": ["node_modules"]
+}
