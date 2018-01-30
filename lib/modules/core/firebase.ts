@@ -63,19 +63,19 @@ import { FirebaseOptions } from '../../types/index';
 const FirebaseCoreModule = NativeModules.RNFirebase;
 
 export class Firebase {
-  admob: AdMob;
-  analytics: Analytics;
-  auth: Auth;
-  config: Config;
-  crash: Crash;
-  database: Database;
+  admob: () => AdMob;
+  analytics: () => Analytics;
+  auth: () => Auth;
+  config: () => Config;
+  crash: () => Crash;
+  database: () => Database;
   // fabric;
-  firestore: Firestore;
-  links: Links;
-  messaging: Messaging;
-  perf: Perf;
-  storage: Storage;
-  utils: Utils;
+  firestore: () => Firestore;
+  links: () => Links;
+  messaging: () => Messaging;
+  perf: () => Perf;
+  storage: () => Storage;
+  utils: () => Utils;
 
   constructor() {
     if (!FirebaseCoreModule) {

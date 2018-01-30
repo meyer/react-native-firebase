@@ -118,7 +118,7 @@ export const buildTypeMap = (value: any): FirestoreTypeMap | null => {
 export const parseNativeMap = (
   firestore: Firestore,
   nativeData: { [key: string]: FirestoreTypeMap }
-): Object | void => {
+): { [key: string]: any } | void => {
   let data;
   if (nativeData) {
     data = {};

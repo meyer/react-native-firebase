@@ -29,7 +29,7 @@ const extractFieldPathData = (data: Object | void, segments: string[]): any => {
  * @class DocumentSnapshot
  */
 export default class DocumentSnapshot {
-  _data: Object | void;
+  _data: { [key: string]: any } | void;
   _metadata: FirestoreSnapshotMetadata;
   _ref: DocumentReference;
 
@@ -61,7 +61,7 @@ export default class DocumentSnapshot {
     return this._ref;
   }
 
-  data(): Object | void {
+  data(): { [key: string]: any } | void {
     return this._data;
   }
 
