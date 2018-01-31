@@ -7,7 +7,7 @@ import {
   isAndroid,
   isIOS,
   isString,
-  nativeToJSError,
+  // nativeToJSError,
 } from '../../utils';
 import { getNativeModule } from '../../utils/native';
 
@@ -43,8 +43,9 @@ export default class PhoneAuthListener {
     success: string;
   };
   private _internalEvents: Object;
-  private _reject: Function | null;
-  private _resolve: Function | null;
+  // marked protected because tsc doesn't see that they're used
+  protected _reject: (result: any) => void | null;
+  protected _resolve: (result: any) => void | null;
   private _promise: Promise<any> | null;
   private _phoneAuthRequestKey: string;
 
@@ -133,54 +134,54 @@ export default class PhoneAuthListener {
     SharedEventEmitter.addListener(this._publicEvents.event, observer);
   }
 
-  /**
-   * Send a snapshot event to users event observer.
-   * @param snapshot PhoneAuthSnapshot
-   * @private
-   */
-  private _emitToObservers(snapshot: PhoneAuthSnapshot) {
-    SharedEventEmitter.emit(this._publicEvents.event, snapshot);
-  }
+  // /**
+  //  * Send a snapshot event to users event observer.
+  //  * @param snapshot PhoneAuthSnapshot
+  //  * @private
+  //  */
+  // private _emitToObservers(snapshot: PhoneAuthSnapshot) {
+  //   SharedEventEmitter.emit(this._publicEvents.event, snapshot);
+  // }
 
-  /**
-   * Send a error snapshot event to any subscribed errorCb's
-   * @param snapshot
-   * @private
-   */
-  private _emitToErrorCb(snapshot) {
-    const { error } = snapshot;
-    if (this._reject) this._reject(error);
-    SharedEventEmitter.emit(this._publicEvents.error, error);
-  }
+  // /**
+  //  * Send a error snapshot event to any subscribed errorCb's
+  //  * @param snapshot
+  //  * @private
+  //  */
+  // private _emitToErrorCb(snapshot) {
+  //   const { error } = snapshot;
+  //   if (this._reject) this._reject(error);
+  //   SharedEventEmitter.emit(this._publicEvents.error, error);
+  // }
 
-  /**
-   * Send a success snapshot event to any subscribed completeCb's
-   * @param snapshot
-   * @private
-   */
-  private _emitToSuccessCb(snapshot) {
-    if (this._resolve) this._resolve(snapshot);
-    SharedEventEmitter.emit(this._publicEvents.success, snapshot);
-  }
+  // /**
+  //  * Send a success snapshot event to any subscribed completeCb's
+  //  * @param snapshot
+  //  * @private
+  //  */
+  // private _emitToSuccessCb(snapshot) {
+  //   if (this._resolve) this._resolve(snapshot);
+  //   SharedEventEmitter.emit(this._publicEvents.success, snapshot);
+  // }
 
-  /**
-   * Removes all listeners for this phone auth instance
-   * @private
-   */
-  private _removeAllListeners() {
-    setTimeout(() => {
-      // move to next event loop - not sure if needed
-      // internal listeners
-      Object.values(this._internalEvents).forEach(event => {
-        SharedEventEmitter.removeAllListeners(event);
-      });
+  // /**
+  //  * Removes all listeners for this phone auth instance
+  //  * @private
+  //  */
+  // private _removeAllListeners() {
+  //   setTimeout(() => {
+  //     // move to next event loop - not sure if needed
+  //     // internal listeners
+  //     Object.values(this._internalEvents).forEach(event => {
+  //       SharedEventEmitter.removeAllListeners(event);
+  //     });
 
-      // user observer listeners
-      Object.values(this._publicEvents).forEach(publicEvent => {
-        SharedEventEmitter.removeAllListeners(publicEvent);
-      });
-    }, 0);
-  }
+  //     // user observer listeners
+  //     Object.values(this._publicEvents).forEach(publicEvent => {
+  //       SharedEventEmitter.removeAllListeners(publicEvent);
+  //     });
+  //   }, 0);
+  // }
 
   /**
    * Create a new internal deferred promise, if not already created
@@ -206,86 +207,86 @@ export default class PhoneAuthListener {
    --- INTERNAL EVENT HANDLERS
    ---------------------------- */
 
-  /**
-   * Internal code sent event handler
-   * @private
-   * @param credential
-   */
-  private _codeSentHandler(credential) {
-    const snapshot: PhoneAuthSnapshot = {
-      verificationId: credential.verificationId,
-      code: null,
-      error: null,
-      state: 'sent',
-    };
+  // /**
+  //  * Internal code sent event handler
+  //  * @private
+  //  * @param credential
+  //  */
+  // private _codeSentHandler(credential) {
+  //   const snapshot: PhoneAuthSnapshot = {
+  //     verificationId: credential.verificationId,
+  //     code: null,
+  //     error: null,
+  //     state: 'sent',
+  //   };
 
-    this._emitToObservers(snapshot);
+  //   this._emitToObservers(snapshot);
 
-    if (isIOS) {
-      this._emitToSuccessCb(snapshot);
-    }
+  //   if (isIOS) {
+  //     this._emitToSuccessCb(snapshot);
+  //   }
 
-    if (isAndroid) {
-      // android can auto retrieve so we don't emit to successCb immediately,
-      // if auto retrieve times out then that will emit to successCb
-    }
-  }
+  //   if (isAndroid) {
+  //     // android can auto retrieve so we don't emit to successCb immediately,
+  //     // if auto retrieve times out then that will emit to successCb
+  //   }
+  // }
 
-  /**
-   * Internal code auto retrieve timeout event handler
-   * @private
-   * @param credential
-   */
-  private _codeAutoRetrievalTimeoutHandler(credential) {
-    const snapshot: PhoneAuthSnapshot = {
-      verificationId: credential.verificationId,
-      code: null,
-      error: null,
-      state: 'timeout',
-    };
+  // /**
+  //  * Internal code auto retrieve timeout event handler
+  //  * @private
+  //  * @param credential
+  //  */
+  // private _codeAutoRetrievalTimeoutHandler(credential) {
+  //   const snapshot: PhoneAuthSnapshot = {
+  //     verificationId: credential.verificationId,
+  //     code: null,
+  //     error: null,
+  //     state: 'timeout',
+  //   };
 
-    this._emitToObservers(snapshot);
-    this._emitToSuccessCb(snapshot);
-  }
+  //   this._emitToObservers(snapshot);
+  //   this._emitToSuccessCb(snapshot);
+  // }
 
-  /**
-   * Internal verification complete event handler
-   * @param credential
-   * @private
-   */
-  private _verificationCompleteHandler(credential) {
-    const snapshot: PhoneAuthSnapshot = {
-      verificationId: credential.verificationId,
-      code: credential.code || null,
-      error: null,
-      state: 'verified',
-    };
+  // /**
+  //  * Internal verification complete event handler
+  //  * @param credential
+  //  * @private
+  //  */
+  // private _verificationCompleteHandler(credential) {
+  //   const snapshot: PhoneAuthSnapshot = {
+  //     verificationId: credential.verificationId,
+  //     code: credential.code || null,
+  //     error: null,
+  //     state: 'verified',
+  //   };
 
-    this._emitToObservers(snapshot);
-    this._emitToSuccessCb(snapshot);
-    this._removeAllListeners();
-  }
+  //   this._emitToObservers(snapshot);
+  //   this._emitToSuccessCb(snapshot);
+  //   this._removeAllListeners();
+  // }
 
-  /**
-   * Internal verification failed event handler
-   * @param state
-   * @private
-   */
-  private _verificationFailedHandler(state) {
-    const snapshot: PhoneAuthSnapshot = {
-      verificationId: state.verificationId,
-      code: null,
-      error: null,
-      state: 'error',
-    };
+  // /**
+  //  * Internal verification failed event handler
+  //  * @param state
+  //  * @private
+  //  */
+  // private _verificationFailedHandler(state) {
+  //   const snapshot: PhoneAuthSnapshot = {
+  //     verificationId: state.verificationId,
+  //     code: null,
+  //     error: null,
+  //     state: 'error',
+  //   };
 
-    const { code, message, nativeErrorMessage } = state.error;
-    snapshot.error = nativeToJSError(code, message, { nativeErrorMessage });
+  //   const { code, message, nativeErrorMessage } = state.error;
+  //   snapshot.error = nativeToJSError(code, message, { nativeErrorMessage });
 
-    this._emitToObservers(snapshot);
-    this._emitToErrorCb(snapshot);
-    this._removeAllListeners();
-  }
+  //   this._emitToObservers(snapshot);
+  //   this._emitToErrorCb(snapshot);
+  //   this._removeAllListeners();
+  // }
 
   /* -------------
    -- PUBLIC API

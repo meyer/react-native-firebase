@@ -29,7 +29,8 @@ const FirebaseCoreModule = NativeModules.RNFirebase;
 export default class App {
   private _extendedProps: Dict<boolean>;
   private _initialized: boolean = false;
-  private _name: string;
+  /** @private */
+  _name: string;
   // private _nativeInitialized: boolean = false;
   private _options: FirebaseOptions;
 

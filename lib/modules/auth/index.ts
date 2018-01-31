@@ -121,16 +121,16 @@ export default class Auth extends ModuleBase {
     getNativeModule(this).addIdTokenListener();
   }
 
-  private _setUser(user?: NativeUser): User | null {
+  /** @private */
+  _setUser(user?: NativeUser): User | null {
     this._authResult = true;
     this._user = user ? new User(this, user) : null;
     SharedEventEmitter.emit(getAppEventName(this, 'onUserChanged'), this._user);
     return this._user;
   }
 
-  private _setUserCredential(
-    userCredential: NativeUserCredential
-  ): UserCredential {
+  /** @private */
+  _setUserCredential(userCredential: NativeUserCredential): UserCredential {
     const user = new User(this, userCredential.user);
     this._authResult = true;
     this._user = user;

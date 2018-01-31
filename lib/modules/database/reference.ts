@@ -75,7 +75,8 @@ export type DatabaseListener = {
  * @extends ReferenceBase
  */
 export default class Reference extends ReferenceBase {
-  private _database: Database;
+  /** @private */
+  _database: Database;
   private _promise?: Promise<any>;
   private _query: Query;
 
