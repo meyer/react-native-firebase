@@ -22,12 +22,12 @@ import Performance from '../perf';
 import Storage from '../storage';
 import Utils from '../utils';
 
-import { FirebaseOptions } from '../../types';
+import { FirebaseOptions, Dict } from '../../types';
 
 const FirebaseCoreModule = NativeModules.RNFirebase;
 
 export default class App {
-  private _extendedProps: { [key: string]: boolean };
+  private _extendedProps: Dict<boolean>;
   private _initialized: boolean = false;
   private _name: string;
   // private _nativeInitialized: boolean = false;

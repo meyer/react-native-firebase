@@ -4,6 +4,7 @@
 import { windowOrGlobal } from './';
 
 import ModuleBase from './ModuleBase';
+import { Dict } from '../types/index';
 
 declare var window: any;
 
@@ -15,7 +16,7 @@ declare var window: any;
 
 // clean up time
 
-const NATIVE_LOGGERS: { [key: string]: any } = {};
+const NATIVE_LOGGERS: Dict = {};
 
 const getModuleKey = (module: ModuleBase): string =>
   `${module.app.name}:${module.namespace}`;

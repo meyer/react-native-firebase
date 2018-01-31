@@ -3,14 +3,14 @@ import App from '../modules/core/firebase-app';
 import INTERNALS from './internals';
 import { isAndroid, isObject, isString } from './';
 
-import { FirebaseNamespace, FirebaseOptions } from '../types';
+import { FirebaseNamespace, FirebaseOptions, Dict } from '../types';
 
 // import ModuleBase from './ModuleBase';
 
 const FirebaseCoreModule = NativeModules.RNFirebase;
 
-const APPS: { [key: string]: App } = {};
-const APP_MODULES: { [key: string]: { [key: string]: any } } = {};
+const APPS: Dict<App> = {};
+const APP_MODULES: Dict<Dict> = {};
 const DEFAULT_APP_NAME = '[DEFAULT]';
 
 export default {

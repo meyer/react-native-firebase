@@ -7,6 +7,7 @@ import { SharedEventEmitter } from './events';
 import DatabaseSnapshot from '../modules/database/snapshot';
 import DatabaseReference from '../modules/database/reference';
 import { isString, nativeToJSError } from '../utils';
+import { Dict } from '../types/index';
 
 export type Listener = (DatabaseSnapshot) => any;
 
@@ -27,10 +28,8 @@ export type Registration = {
  */
 export class SyncTree {
   private _nativeEmitter: NativeEventEmitter;
-  private _reverseLookup: { [key: string]: Registration };
-  private _tree: {
-    [key: string]: { [key: string]: { [key: string]: Listener } };
-  };
+  private _reverseLookup: Dict<Registration>;
+  private _tree: Dict<Dict<Dict<Listener>>>;
 
   constructor() {
     this._tree = {};

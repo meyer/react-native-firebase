@@ -6,6 +6,7 @@ import { getAppEventName, SharedEventEmitter } from '../../utils/events';
 import { getLogger } from '../../utils/log';
 import { getNativeModule } from '../../utils/native';
 import Database from './';
+import { Dict } from '../../types/index';
 
 let transactionId = 0;
 
@@ -36,7 +37,7 @@ export default class TransactionHandler {
   private _database: Database;
   // marked as protected instead of private because tsc thinks its unused
   protected _transactionListener;
-  private _transactions: { [key: number]: any };
+  private _transactions: Dict;
 
   constructor(database: Database) {
     this._transactions = {};

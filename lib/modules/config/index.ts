@@ -7,6 +7,7 @@ import ModuleBase from '../../utils/ModuleBase';
 import { getNativeModule } from '../../utils/native';
 
 import App from '../core/firebase-app';
+import { Dict } from '../../types/index';
 
 export type NativeValue = {
   stringValue?: string;
@@ -149,7 +150,7 @@ export default class RemoteConfig extends ModuleBase {
     return getNativeModule(this)
       .getValues(keys || [])
       .then(nativeValues => {
-        const values: { [key: string]: any } = {};
+        const values: Dict = {};
         for (let i = 0, len = keys.length; i < len; i++) {
           values[keys[i]] = this._nativeValueToJS(nativeValues[i]);
         }

@@ -5,10 +5,10 @@ import { NativeEventEmitter, NativeModules } from 'react-native';
 import * as EventEmitter from './emitter/EventEmitter';
 
 import ModuleBase from './ModuleBase';
-import { FirebaseModuleConfig, FirebaseModuleName } from '../types';
+import { FirebaseModuleConfig, FirebaseModuleName, Dict } from '../types';
 
-const NATIVE_EMITTERS: { [key: string]: NativeEventEmitter } = {};
-const NATIVE_SUBSCRIPTIONS: { [key: string]: boolean } = {};
+const NATIVE_EMITTERS: Dict<NativeEventEmitter> = {};
+const NATIVE_SUBSCRIPTIONS: Dict<boolean> = {};
 
 export const SharedEventEmitter = new EventEmitter();
 

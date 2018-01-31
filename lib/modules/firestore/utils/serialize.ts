@@ -13,7 +13,7 @@ import Path from '../Path';
 import { typeOf } from '../../../utils';
 
 import Firestore from '../';
-import { FirestoreTypeMap } from '../../../types';
+import { FirestoreTypeMap, Dict } from '../../../types';
 
 /*
  * Functions that build up the data needed to represent
@@ -21,9 +21,7 @@ import { FirestoreTypeMap } from '../../../types';
  * for transmission to the native side
  */
 
-export const buildNativeMap = (
-  data: any
-): { [key: string]: FirestoreTypeMap } => {
+export const buildNativeMap = (data: any): Dict<FirestoreTypeMap> => {
   const nativeData = {};
   if (data) {
     Object.keys(data).forEach(key => {
@@ -117,8 +115,8 @@ export const buildTypeMap = (value: any): FirestoreTypeMap | null => {
 
 export const parseNativeMap = (
   firestore: Firestore,
-  nativeData: { [key: string]: FirestoreTypeMap }
-): { [key: string]: any } | void => {
+  nativeData: Dict<FirestoreTypeMap>
+): Dict | void => {
   let data;
   if (nativeData) {
     data = {};

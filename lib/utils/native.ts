@@ -6,9 +6,9 @@ import { initialiseNativeModuleEventEmitter } from './events';
 import INTERNALS from './internals';
 
 import ModuleBase from './ModuleBase';
-import { FirebaseModuleConfig } from '../types';
+import { FirebaseModuleConfig, Dict } from '../types';
 
-const NATIVE_MODULES: { [key: string]: any } = {};
+const NATIVE_MODULES: Dict = {};
 
 /**
  * Prepends appName arg to all native method calls

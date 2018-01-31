@@ -90,7 +90,7 @@ export type FirestoreNativeDocumentChange = {
 };
 
 export type FirestoreNativeDocumentSnapshot = {
-  data: { [key: string]: FirestoreTypeMap };
+  data: Dict<FirestoreTypeMap>;
   metadata: FirestoreSnapshotMetadata;
   path: string;
 };
@@ -190,3 +190,7 @@ export type FirestoreTypeMap = {
 export type FirestoreWriteOptions = {
   merge?: boolean;
 };
+
+export interface Dict<T = any> {
+  [key: string]: T;
+}

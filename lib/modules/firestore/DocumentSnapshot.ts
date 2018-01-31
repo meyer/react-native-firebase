@@ -12,6 +12,7 @@ import Firestore from './';
 import {
   FirestoreNativeDocumentSnapshot,
   FirestoreSnapshotMetadata,
+  Dict,
 } from '../../types';
 
 const extractFieldPathData = (data: Object | void, segments: string[]): any => {
@@ -29,7 +30,7 @@ const extractFieldPathData = (data: Object | void, segments: string[]): any => {
  * @class DocumentSnapshot
  */
 export default class DocumentSnapshot {
-  private _data: { [key: string]: any } | void;
+  private _data: Dict | void;
   private _metadata: FirestoreSnapshotMetadata;
   private _ref: DocumentReference;
 
@@ -61,7 +62,7 @@ export default class DocumentSnapshot {
     return this._ref;
   }
 
-  data(): { [key: string]: any } | void {
+  data(): Dict | void {
     return this._data;
   }
 

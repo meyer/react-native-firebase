@@ -1,5 +1,6 @@
 // @flow
 import { Platform } from 'react-native';
+import { Dict } from '../types/index';
 
 // todo cleanup unused utilities from legacy code
 
@@ -167,7 +168,7 @@ export function tryJSONStringify(data: any): string | null {
   }
 }
 
-declare const self: { [key: string]: any };
+declare const self: Dict;
 
 export const windowOrGlobal =
   (typeof self === 'object' && self.self === self && self) ||
