@@ -29,9 +29,9 @@ export interface OptionsObj {
 export default class Database extends ModuleBase {
   static NAMESPACE = NAMESPACE;
 
-  _offsetRef: Reference;
-  _serverTimeOffset: number;
-  _transactionHandler: TransactionHandler;
+  private _offsetRef: Reference;
+  private _serverTimeOffset: number;
+  // private _transactionHandler: TransactionHandler;
 
   constructor(app: App, options: OptionsObj = {}) {
     super(app, {
@@ -40,7 +40,7 @@ export default class Database extends ModuleBase {
       multiApp: true,
       namespace: NAMESPACE,
     });
-    this._transactionHandler = new TransactionHandler(this);
+    // this._transactionHandler = new TransactionHandler(this);
 
     if (options.persistence) {
       getNativeModule(this).setPersistence(options.persistence);

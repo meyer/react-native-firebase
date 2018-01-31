@@ -33,9 +33,10 @@ export interface TEvent {
  * @class TransactionHandler
  */
 export default class TransactionHandler {
-  _database: Database;
-  _transactionListener: Function;
-  _transactions: { [key: number]: any };
+  private _database: Database;
+  // marked as protected instead of private because tsc thinks its unused
+  protected _transactionListener;
+  private _transactions: { [key: number]: any };
 
   constructor(database: Database) {
     this._transactions = {};
@@ -43,7 +44,7 @@ export default class TransactionHandler {
 
     this._transactionListener = SharedEventEmitter.addListener(
       getAppEventName(this._database, 'database_transaction_event'),
-      this._handleTransactionEvent.bind(this)
+      this._handleTransactionEvent
     );
   }
 
@@ -89,7 +90,7 @@ export default class TransactionHandler {
    * @returns {*}
    * @private
    */
-  _handleTransactionEvent(event: TEvent = {}) {
+  private _handleTransactionEvent = (event: TEvent = {}) => {
     switch (event.type) {
       case 'update':
         return this._handleUpdate(event);
@@ -104,14 +105,14 @@ export default class TransactionHandler {
         );
         return undefined;
     }
-  }
+  };
 
   /**
    *
    * @param event
    * @private
    */
-  _handleUpdate(event: TEvent = {}) {
+  private _handleUpdate = (event: TEvent = {}) => {
     let newValue;
     const { id, value } = event;
 
@@ -132,14 +133,14 @@ export default class TransactionHandler {
         abort,
       });
     }
-  }
+  };
 
   /**
    *
    * @param event
    * @private
    */
-  _handleError(event: TEvent = {}) {
+  private _handleError = (event: TEvent = {}) => {
     const transaction = this._transactions[event.id];
     if (transaction && !transaction.completed) {
       transaction.completed = true;
@@ -151,14 +152,14 @@ export default class TransactionHandler {
         });
       }
     }
-  }
+  };
 
   /**
    *
    * @param event
    * @private
    */
-  _handleComplete(event: TEvent = {}) {
+  private _handleComplete = (event: TEvent = {}) => {
     const transaction = this._transactions[event.id];
     if (transaction && !transaction.completed) {
       transaction.completed = true;
@@ -174,5 +175,5 @@ export default class TransactionHandler {
         });
       }
     }
-  }
+  };
 }

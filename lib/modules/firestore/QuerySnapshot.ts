@@ -23,10 +23,10 @@ export type QuerySnapshotNativeData = {
  * @class QuerySnapshot
  */
 export default class QuerySnapshot {
-  _changes: DocumentChange[];
-  _docs: DocumentSnapshot[];
-  _metadata: FirestoreSnapshotMetadata;
-  _query: Query;
+  private _changes: DocumentChange[];
+  private _docs: DocumentSnapshot[];
+  private _metadata: FirestoreSnapshotMetadata;
+  private _query: Query;
 
   constructor(
     firestore: Firestore,

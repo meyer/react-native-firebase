@@ -31,8 +31,8 @@ export type UpdateProfile = {
 };
 
 export default class User {
-  _auth: Auth;
-  _user: NativeUser;
+  private _auth: Auth;
+  private _user: NativeUser;
 
   /**
    *

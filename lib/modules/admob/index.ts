@@ -37,8 +37,8 @@ export const MODULE_NAME = 'RNFirebaseAdmob';
 const NAMESPACE = 'admob';
 
 export default class AdMob extends ModuleBase {
-  _appId?: string;
-  _initialized: boolean;
+  private _appId?: string;
+  private _initialized: boolean;
 
   static NAMESPACE = NAMESPACE;
 
@@ -63,7 +63,7 @@ export default class AdMob extends ModuleBase {
     );
   }
 
-  _onInterstitialEvent(event: NativeEvent): void {
+  private _onInterstitialEvent(event: NativeEvent): void {
     const { adUnit } = event;
     const jsEventType = `interstitial_${adUnit}`;
 
@@ -74,7 +74,7 @@ export default class AdMob extends ModuleBase {
     SharedEventEmitter.emit(jsEventType, event);
   }
 
-  _onRewardedVideoEvent(event: NativeEvent): void {
+  private _onRewardedVideoEvent(event: NativeEvent): void {
     const { adUnit } = event;
     const jsEventType = `rewarded_video_${adUnit}`;
 

@@ -34,7 +34,7 @@ export default class RewardedVideo {
    * @param event
    * @private
    */
-  _onRewardedVideoEvent = event => {
+  private _onRewardedVideoEvent = event => {
     const eventType = `rewarded_video:${this.adUnit}:${event.type}`;
 
     let emitData = Object.assign({}, event);

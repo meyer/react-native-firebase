@@ -8,7 +8,7 @@ import App from '../modules/core/firebase-app';
 import { FirebaseModuleConfig, FirebaseNamespace } from '../types';
 
 export default abstract class ModuleBase {
-  _app: App;
+  private _app: App;
   namespace: FirebaseNamespace;
 
   /**

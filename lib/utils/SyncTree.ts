@@ -26,9 +26,11 @@ export type Registration = {
  * subscriptions and keep the listeners in sync in js vs native.
  */
 export class SyncTree {
-  _nativeEmitter: NativeEventEmitter;
-  _reverseLookup: { [key: string]: Registration };
-  _tree: { [key: string]: { [key: string]: { [key: string]: Listener } } };
+  private _nativeEmitter: NativeEventEmitter;
+  private _reverseLookup: { [key: string]: Registration };
+  private _tree: {
+    [key: string]: { [key: string]: { [key: string]: Listener } };
+  };
 
   constructor() {
     this._tree = {};
@@ -49,7 +51,7 @@ export class SyncTree {
    * @param event
    * @private
    */
-  _handleSyncEvent(event) {
+  private _handleSyncEvent(event) {
     if (event.error) {
       this._handleErrorEvent(event);
     } else {
@@ -65,7 +67,7 @@ export class SyncTree {
    * @param event
    * @private
    */
-  _handleValueEvent(event) {
+  private _handleValueEvent(event) {
     // console.log('SyncTree.VALUE >>>', event);
     const { key, eventRegistrationKey } = event.registration;
     const registration = this.getRegistration(eventRegistrationKey);
@@ -94,7 +96,7 @@ export class SyncTree {
    * @param event
    * @private
    */
-  _handleErrorEvent(event) {
+  private _handleErrorEvent(event) {
     // console.log('SyncTree.ERROR >>>', event);
     const { code, message } = event.error;
     const {
@@ -323,7 +325,7 @@ export class SyncTree {
    * @return {function(...[*])}
    * @private
    */
-  _onOnceRemoveRegistration(registration, listener) {
+  private _onOnceRemoveRegistration(registration, listener) {
     return (...args: any[]) => {
       this.removeRegistration(registration);
       listener(...args);

@@ -11,10 +11,10 @@ import { FirestoreNativeDocumentChange } from '../../types';
  * @class DocumentChange
  */
 export default class DocumentChange {
-  _document: DocumentSnapshot;
-  _newIndex: number;
-  _oldIndex: number;
-  _type: string;
+  private _document: DocumentSnapshot;
+  private _newIndex: number;
+  private _oldIndex: number;
+  private _type: string;
 
   constructor(firestore: Firestore, nativeData: FirestoreNativeDocumentChange) {
     this._document = new DocumentSnapshot(firestore, nativeData.document);

@@ -102,11 +102,11 @@ export default class Storage extends ModuleBase {
   /**
    * INTERNALS
    */
-  _getSubEventName(path: string, eventName: string) {
+  private _getSubEventName(path: string, eventName: string) {
     return getAppEventName(this, `${path}-${eventName}`);
   }
 
-  _handleStorageEvent(event: EventResponse) {
+  private _handleStorageEvent(event: EventResponse) {
     const { path, eventName } = event;
     const body = event.body || {};
 
@@ -114,14 +114,7 @@ export default class Storage extends ModuleBase {
     SharedEventEmitter.emit(this._getSubEventName(path, eventName), body);
   }
 
-  _handleStorageError(err: EventResponse) {
-    const { path, eventName } = err;
-    const body = err.body || {};
-
-    getLogger(this).debug('_handleStorageError ->', err);
-    SharedEventEmitter.emit(this._getSubEventName(path, eventName), body);
-  }
-
+  /** @private */
   _addListener(
     path: string,
     eventName: string,
@@ -130,6 +123,7 @@ export default class Storage extends ModuleBase {
     SharedEventEmitter.addListener(this._getSubEventName(path, eventName), cb);
   }
 
+  /** @private */
   _removeListener(
     path: string,
     eventName: string,

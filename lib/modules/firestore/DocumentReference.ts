@@ -47,8 +47,8 @@ function isObserver(obj): obj is Observer {
  * @class DocumentReference
  */
 export default class DocumentReference {
-  _documentPath: Path;
-  _firestore: Firestore;
+  private _documentPath: Path;
+  private _firestore: Firestore;
 
   constructor(firestore: Firestore, documentPath: Path) {
     this._documentPath = documentPath;
@@ -289,7 +289,7 @@ export default class DocumentReference {
    * Remove document snapshot listener
    * @param listener
    */
-  _offDocumentSnapshot(listenerId: string, listener: Function) {
+  private _offDocumentSnapshot(listenerId: string, listener: Function) {
     getLogger(this._firestore).info('Removing onDocumentSnapshot listener');
     SharedEventEmitter.removeListener(
       getAppEventName(this._firestore, `onDocumentSnapshot:${listenerId}`),

@@ -27,11 +27,11 @@ import { FirebaseOptions } from '../../types';
 const FirebaseCoreModule = NativeModules.RNFirebase;
 
 export default class App {
-  _extendedProps: { [key: string]: boolean };
-  _initialized: boolean = false;
-  _name: string;
-  _nativeInitialized: boolean = false;
-  _options: FirebaseOptions;
+  private _extendedProps: { [key: string]: boolean };
+  private _initialized: boolean = false;
+  private _name: string;
+  // private _nativeInitialized: boolean = false;
+  private _options: FirebaseOptions;
 
   admob: () => AdMob;
   analytics: () => Analytics;
@@ -59,7 +59,7 @@ export default class App {
 
     if (fromNative) {
       this._initialized = true;
-      this._nativeInitialized = true;
+      // this._nativeInitialized = true;
     } else if (options.databaseURL && options.apiKey) {
       FirebaseCoreModule.initializeApp(
         this._name,

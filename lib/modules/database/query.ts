@@ -13,7 +13,7 @@ import Reference from './reference';
  * @class Query
  */
 export default class Query {
-  _reference: Reference;
+  private _reference: Reference;
   modifiers: DatabaseModifier[];
 
   constructor(ref: Reference, existingModifiers?: DatabaseModifier[]) {

@@ -22,9 +22,9 @@ import QuerySnapshot from './QuerySnapshot';
  * @class CollectionReference
  */
 export default class CollectionReference {
-  _collectionPath: Path;
-  _firestore: Firestore;
-  _query: Query;
+  private _collectionPath: Path;
+  private _firestore: Firestore;
+  private _query: Query;
 
   constructor(firestore: Firestore, collectionPath: Path) {
     this._collectionPath = collectionPath;

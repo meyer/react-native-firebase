@@ -39,7 +39,7 @@ export default class Interstitial {
    * @param event
    * @private
    */
-  _onInterstitialEvent = event => {
+  private _onInterstitialEvent = event => {
     const eventType = `interstitial:${this.adUnit}:${event.type}`;
 
     let emitData = Object.assign({}, event);

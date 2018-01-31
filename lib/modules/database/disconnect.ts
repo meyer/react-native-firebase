@@ -12,7 +12,7 @@ import Reference from './reference';
  * @class Disconnect
  */
 export default class Disconnect {
-  _database: Database;
+  private _database: Database;
   ref: Reference;
   path: string;
 

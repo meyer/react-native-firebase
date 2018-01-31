@@ -21,9 +21,9 @@ export default class Snapshot {
   ref: Reference;
   key: string;
 
-  _value: any;
-  _priority: any;
-  _childKeys: Array<string>;
+  private _value: any;
+  private _priority: any;
+  private _childKeys: string[];
 
   constructor(ref: Reference, snapshot: SnapshotObj) {
     this.key = snapshot.key;

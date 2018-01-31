@@ -103,12 +103,11 @@ const buildNativeFieldPath = (
  * @class Query
  */
 export default class Query {
-  _fieldFilters: FieldFilter[];
-  _fieldOrders: FieldOrder[];
-  _firestore: Firestore;
-  _iid: number;
-  _queryOptions: QueryOptions;
-  _referencePath: Path;
+  private _fieldFilters: FieldFilter[];
+  private _fieldOrders: FieldOrder[];
+  private _firestore: Firestore;
+  private _queryOptions: QueryOptions;
+  private _referencePath: Path;
 
   constructor(
     firestore: Firestore,
@@ -415,7 +414,7 @@ export default class Query {
    * INTERNALS
    */
 
-  _buildOrderByOption(snapshotOrVarArgs: any[]) {
+  private _buildOrderByOption(snapshotOrVarArgs: any[]) {
     // TODO: Validation
     let values;
     if (
@@ -447,7 +446,7 @@ export default class Query {
    * Remove query snapshot listener
    * @param listener
    */
-  _offCollectionSnapshot(listenerId: string, listener: Function) {
+  private _offCollectionSnapshot(listenerId: string, listener: Function) {
     getLogger(this._firestore).info('Removing onQuerySnapshot listener');
     SharedEventEmitter.removeListener(
       getAppEventName(this._firestore, `onQuerySnapshot:${listenerId}`),

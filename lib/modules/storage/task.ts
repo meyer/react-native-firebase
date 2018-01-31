@@ -75,7 +75,7 @@ export default class StorageTask {
    * @returns {Promise.<T>}
    * @private
    */
-  _interceptSnapshotEvent(f?: (snapshot) => any) {
+  private _interceptSnapshotEvent(f?: (snapshot) => any) {
     if (!isFunction(f)) return null;
     return snapshot => {
       const _snapshot = Object.assign({}, snapshot);
@@ -91,7 +91,7 @@ export default class StorageTask {
    * @returns {*}
    * @private
    */
-  _interceptErrorEvent(f?: (error) => any) {
+  private _interceptErrorEvent(f?: (error) => any) {
     if (!isFunction(f)) return null;
     return error => {
       const _error: TaskError = new Error(error.message);
@@ -109,7 +109,7 @@ export default class StorageTask {
    * @returns {function()}
    * @private
    */
-  _subscribe(
+  private _subscribe(
     nextOrObserver: NextOrObserverType,
     error: FuncErrorType,
     complete: FuncSnapshotType

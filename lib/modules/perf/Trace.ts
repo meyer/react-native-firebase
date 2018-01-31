@@ -7,7 +7,7 @@ import PerformanceMonitoring from './';
 
 export default class Trace {
   identifier: string;
-  _perf: PerformanceMonitoring;
+  private _perf: PerformanceMonitoring;
 
   constructor(perf: PerformanceMonitoring, identifier: string) {
     this._perf = perf;

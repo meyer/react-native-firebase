@@ -28,7 +28,7 @@ const NAMESPACE = 'config';
 export default class RemoteConfig extends ModuleBase {
   static NAMESPACE = NAMESPACE;
 
-  _developerModeEnabled: boolean;
+  private _developerModeEnabled: boolean;
 
   constructor(app: App) {
     super(app, {
@@ -45,7 +45,7 @@ export default class RemoteConfig extends ModuleBase {
    * @returns {*}
    * @private
    */
-  _nativeValueToJS(nativeValue: NativeValue) {
+  private _nativeValueToJS(nativeValue: NativeValue) {
     return {
       source: nativeValue.source,
       val() {

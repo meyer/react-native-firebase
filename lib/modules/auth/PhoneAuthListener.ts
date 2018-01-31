@@ -35,19 +35,18 @@ export type PhoneAuthError = {
 };
 
 export default class PhoneAuthListener {
-  _auth: Auth;
-  _timeout: number;
-  _publicEvents: {
+  private _auth: Auth;
+  private _timeout: number;
+  private _publicEvents: {
     event: string;
     error: string;
     success: string;
   };
-  _internalEvents: Object;
-  _reject: Function | null;
-  _resolve: Function | null;
-  _credential: Object | null;
-  _promise: Promise<any> | null;
-  _phoneAuthRequestKey: string;
+  private _internalEvents: Object;
+  private _reject: Function | null;
+  private _resolve: Function | null;
+  private _promise: Promise<any> | null;
+  private _phoneAuthRequestKey: string;
 
   /**
    *
@@ -60,7 +59,6 @@ export default class PhoneAuthListener {
     this._reject = null;
     this._resolve = null;
     this._promise = null;
-    this._credential = null;
 
     this._timeout = timeout || 20; // 20 secs
     this._phoneAuthRequestKey = generatePushID();
@@ -113,7 +111,7 @@ export default class PhoneAuthListener {
    * Subscribes to all EE events on this._internalEvents
    * @private
    */
-  _subscribeToEvents() {
+  private _subscribeToEvents() {
     const events = Object.keys(this._internalEvents);
 
     for (let i = 0, len = events.length; i < len; i++) {
@@ -131,7 +129,7 @@ export default class PhoneAuthListener {
    * @param observer
    * @private
    */
-  _addUserObserver(observer) {
+  private _addUserObserver(observer) {
     SharedEventEmitter.addListener(this._publicEvents.event, observer);
   }
 
@@ -140,7 +138,7 @@ export default class PhoneAuthListener {
    * @param snapshot PhoneAuthSnapshot
    * @private
    */
-  _emitToObservers(snapshot: PhoneAuthSnapshot) {
+  private _emitToObservers(snapshot: PhoneAuthSnapshot) {
     SharedEventEmitter.emit(this._publicEvents.event, snapshot);
   }
 
@@ -149,7 +147,7 @@ export default class PhoneAuthListener {
    * @param snapshot
    * @private
    */
-  _emitToErrorCb(snapshot) {
+  private _emitToErrorCb(snapshot) {
     const { error } = snapshot;
     if (this._reject) this._reject(error);
     SharedEventEmitter.emit(this._publicEvents.error, error);
@@ -160,7 +158,7 @@ export default class PhoneAuthListener {
    * @param snapshot
    * @private
    */
-  _emitToSuccessCb(snapshot) {
+  private _emitToSuccessCb(snapshot) {
     if (this._resolve) this._resolve(snapshot);
     SharedEventEmitter.emit(this._publicEvents.success, snapshot);
   }
@@ -169,7 +167,7 @@ export default class PhoneAuthListener {
    * Removes all listeners for this phone auth instance
    * @private
    */
-  _removeAllListeners() {
+  private _removeAllListeners() {
     setTimeout(() => {
       // move to next event loop - not sure if needed
       // internal listeners
@@ -188,7 +186,7 @@ export default class PhoneAuthListener {
    * Create a new internal deferred promise, if not already created
    * @private
    */
-  _promiseDeferred() {
+  private _promiseDeferred() {
     if (!this._promise) {
       this._promise = new Promise((resolve, reject) => {
         this._resolve = result => {
@@ -213,7 +211,7 @@ export default class PhoneAuthListener {
    * @private
    * @param credential
    */
-  _codeSentHandler(credential) {
+  private _codeSentHandler(credential) {
     const snapshot: PhoneAuthSnapshot = {
       verificationId: credential.verificationId,
       code: null,
@@ -238,7 +236,7 @@ export default class PhoneAuthListener {
    * @private
    * @param credential
    */
-  _codeAutoRetrievalTimeoutHandler(credential) {
+  private _codeAutoRetrievalTimeoutHandler(credential) {
     const snapshot: PhoneAuthSnapshot = {
       verificationId: credential.verificationId,
       code: null,
@@ -255,7 +253,7 @@ export default class PhoneAuthListener {
    * @param credential
    * @private
    */
-  _verificationCompleteHandler(credential) {
+  private _verificationCompleteHandler(credential) {
     const snapshot: PhoneAuthSnapshot = {
       verificationId: credential.verificationId,
       code: credential.code || null,
@@ -273,7 +271,7 @@ export default class PhoneAuthListener {
    * @param state
    * @private
    */
-  _verificationFailedHandler(state) {
+  private _verificationFailedHandler(state) {
     const snapshot: PhoneAuthSnapshot = {
       verificationId: state.verificationId,
       code: null,

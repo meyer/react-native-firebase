@@ -48,8 +48,7 @@ const NAMESPACE = 'firestore';
  */
 export default class Firestore extends ModuleBase {
   static NAMESPACE = NAMESPACE;
-
-  _referencePath: Path;
+  private _referencePath: Path;
 
   constructor(app: App) {
     super(app, {
@@ -137,7 +136,7 @@ export default class Firestore extends ModuleBase {
    * @param event
    * @private
    */
-  _onCollectionSyncEvent(event: CollectionSyncEvent) {
+  private _onCollectionSyncEvent(event: CollectionSyncEvent) {
     if (event.error) {
       SharedEventEmitter.emit(
         getAppEventName(this, `onQuerySnapshotError:${event.listenerId}`),
@@ -156,7 +155,7 @@ export default class Firestore extends ModuleBase {
    * @param event
    * @private
    */
-  _onDocumentSyncEvent(event: DocumentSyncEvent) {
+  private _onDocumentSyncEvent(event: DocumentSyncEvent) {
     if (event.error) {
       SharedEventEmitter.emit(
         getAppEventName(this, `onDocumentSnapshotError:${event.listenerId}`),

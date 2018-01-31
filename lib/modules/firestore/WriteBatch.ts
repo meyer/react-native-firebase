@@ -29,8 +29,8 @@ export type DocumentWrite = {
  * @class WriteBatch
  */
 export default class WriteBatch {
-  _firestore: Firestore;
-  _writes: DocumentWrite[];
+  private _firestore: Firestore;
+  private _writes: DocumentWrite[];
 
   constructor(firestore: Firestore) {
     this._firestore = firestore;

@@ -75,10 +75,9 @@ export type DatabaseListener = {
  * @extends ReferenceBase
  */
 export default class Reference extends ReferenceBase {
-  _database: Database;
-  _promise?: Promise<any>;
-  _query: Query;
-  _refListeners: { [listenerId: number]: DatabaseListener };
+  private _database: Database;
+  private _promise?: Promise<any>;
+  private _query: Query;
 
   path: string;
 
@@ -89,7 +88,6 @@ export default class Reference extends ReferenceBase {
   ) {
     super(path);
     this._promise = null;
-    this._refListeners = {};
     this._database = database;
     this._query = new Query(this, existingModifiers);
     getLogger(database).debug('Created new Reference', this._getRefKey());
@@ -607,7 +605,7 @@ export default class Reference extends ReferenceBase {
    *
    * @return {string}
    */
-  _getRegistrationKey(eventType: string): string {
+  private _getRegistrationKey(eventType: string): string {
     return `$${this._database.app.name}$/${
       this.path
     }$${this._query.queryIdentifier()}$${listeners}$${eventType}`;
@@ -620,7 +618,7 @@ export default class Reference extends ReferenceBase {
    * @return {string}
    * @private
    */
-  _getRefKey(): string {
+  private _getRefKey(): string {
     return `$${this._database.app.name}$/${
       this.path
     }$${this._query.queryIdentifier()}`;
@@ -631,7 +629,7 @@ export default class Reference extends ReferenceBase {
    * @param promise
    * @private
    */
-  _setThenable(promise: Promise<any>) {
+  private _setThenable(promise: Promise<any>) {
     this._promise = promise;
   }
 
@@ -641,7 +639,7 @@ export default class Reference extends ReferenceBase {
    * @returns {Object}
    * @private
    */
-  _serializeObject(obj: object) {
+  private _serializeObject(obj: object) {
     if (!isObject(obj)) return obj;
 
     // json stringify then parse it calls toString on Objects / Classes
@@ -655,7 +653,7 @@ export default class Reference extends ReferenceBase {
    * @returns {*}
    * @private
    */
-  _serializeAnyType(value: any) {
+  private _serializeAnyType(value: any) {
     if (isObject(value)) {
       return {
         type: 'object',

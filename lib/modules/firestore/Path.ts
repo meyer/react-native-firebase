@@ -7,7 +7,7 @@
  * @class Path
  */
 export default class Path {
-  _parts: string[];
+  private _parts: string[];
 
   constructor(pathComponents: string[]) {
     this._parts = pathComponents;

@@ -64,9 +64,9 @@ const NAMESPACE = 'auth';
 export default class Auth extends ModuleBase {
   static NAMESPACE = NAMESPACE;
 
-  _authResult: boolean;
-  _languageCode: string;
-  _user?: User;
+  private _authResult: boolean;
+  private _languageCode: string;
+  private _user?: User;
 
   constructor(app: App) {
     super(app, {
@@ -121,14 +121,16 @@ export default class Auth extends ModuleBase {
     getNativeModule(this).addIdTokenListener();
   }
 
-  _setUser(user?: NativeUser): User | null {
+  private _setUser(user?: NativeUser): User | null {
     this._authResult = true;
     this._user = user ? new User(this, user) : null;
     SharedEventEmitter.emit(getAppEventName(this, 'onUserChanged'), this._user);
     return this._user;
   }
 
-  _setUserCredential(userCredential: NativeUserCredential): UserCredential {
+  private _setUserCredential(
+    userCredential: NativeUserCredential
+  ): UserCredential {
     const user = new User(this, userCredential.user);
     this._authResult = true;
     this._user = user;

@@ -6,8 +6,8 @@ import Auth from './';
 import User from './User';
 
 export default class ConfirmationResult {
-  _auth: Auth;
-  _verificationId: string;
+  private _auth: Auth;
+  private _verificationId: string;
 
   /**
    *

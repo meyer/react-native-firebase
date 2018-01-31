@@ -7,6 +7,7 @@
  * @class FieldPath
  */
 export default class FieldPath {
+  /** @private */
   _segments: string[];
 
   constructor(...segments: string[]) {
